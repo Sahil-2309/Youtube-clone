@@ -9,8 +9,9 @@ const Navbar = () => (
     alignItems='center'
     p={2}
     sx={{
+      boxShadow: 'inset 0 0 6px #000',
       position: 'sticky',
-      background: '#000',
+      background: '#212121',
       top: 0,
       justifyContent: 'space-between',
     }}

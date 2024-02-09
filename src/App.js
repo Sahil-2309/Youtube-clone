@@ -11,7 +11,7 @@ import {
 
 const App = () => (
   <Router>
-    <Box sx={{ background: '#000' }}>
+    <Box sx={{ background: '#1c1c1c' }}>
       <Navbar />
       <Routes>
         <Route path='/' element={<Feed />} />
