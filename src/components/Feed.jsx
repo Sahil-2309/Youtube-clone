@@ -4,7 +4,7 @@ import { fetchFromAPI } from '../utils/fetchFromApi'
 import { Videos, Sidebar } from './'
 
 const Feed = () => {
-  const [selectedCategory, setSelectedCategory] = useState('New')
+  const [selectedCategory, setSelectedCategory] = useState('Home')
   const [videos, setVideos] = useState(null)
 
   useEffect(() => {
@@ -15,34 +15,25 @@ const Feed = () => {
     )
   }, [selectedCategory])
 
-  const renderCategoryLabel = () => {
-    if (selectedCategory === 'New') return ''
-    else return selectedCategory
-  }
-
-  const renderVideosTitle = () => {
-    if (selectedCategory === 'New') return 'Home'
-    else return 'Videos'
-  }
-
   return (
-    <Stack direction={{ xs: 'column', md: 'row' }}>
+    <Stack sx={{ flexDirection: { sx: 'column', md: 'row' } }}>
       <Box
         sx={{
-          height: { xs: 'auto', md: '92vh' },
-          boxShadow: '0 0 6px #000',
-          px: { xs: 0, md: 2 },
+          height: { sx: 'auto', md: '92vh' },
+          boxShadow: ' 0 0 6px #000',
+          px: { sx: 0, md: 2 },
         }}
       >
         <Sidebar
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
+
         <Typography
           className='copyright'
           variant='body2'
           sx={{ mt: 1.5, color: '#fff' }}
-        />
+        ></Typography>
       </Box>
 
       <Box p={2} sx={{ overflowY: 'auto', height: '90vh', flex: 2 }}>
@@ -52,13 +43,14 @@ const Feed = () => {
           mb={2}
           sx={{ color: 'white' }}
         >
-          {renderCategoryLabel()}{' '}
+          {selectedCategory === 'Home' ? 'Home' : selectedCategory}{' '}
           <span
-            style={{ color: selectedCategory === 'New' ? 'white' : '#FC1503' }}
+            style={{ color: selectedCategory === 'Home' ? 'white' : '#FC1503' }}
           >
-            {renderVideosTitle()}
+            {selectedCategory === 'Home' ? '' : 'Videos'}
           </span>
         </Typography>
+
         <Videos videos={videos} />
       </Box>
     </Stack>
