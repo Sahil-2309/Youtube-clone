@@ -33,9 +33,7 @@ const Feed = () => {
           className='copyright'
           variant='body2'
           sx={{ mt: 1.5, color: '#fff' }}
-        >
-          Copyright © 2022 JSM Media
-        </Typography>
+        ></Typography>
       </Box>
 
       <Box p={2} sx={{ overflowY: 'auto', height: '90vh', flex: 2 }}>
@@ -45,7 +43,10 @@ const Feed = () => {
           mb={2}
           sx={{ color: 'white' }}
         >
-          {selectedCategory} <span style={{ color: '#FC1503' }}>videos</span>
+          {selectedCategory === 'New' ? '' : { selectedCategory }}{' '}
+          <span style={{ color: '#FC1503' }}>
+            {selectedCategory === 'New' ? '' : 'Videos'}
+          </span>
         </Typography>
 
         <Videos videos={videos} />

@@ -14,6 +14,7 @@ const SearchBar = () => {
         pl: 2,
         boxShadow: 'none',
         mr: { sm: 5 },
+        ml: '400px',
       }}
     >
       <input
