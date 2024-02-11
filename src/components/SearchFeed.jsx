@@ -2,28 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import { fetchFromAPI } from '../utils/fetchFromApi'
 import { Videos } from './'
-
+import { useParams } from 'react-router-dom'
 const SearchFeed = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Home')
   const [videos, setVideos] = useState(null)
-
+  const { searchTerm } = useParams()
   useEffect(() => {
     setVideos(null)
-
-    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`).then((data) =>
+    fetchFromAPI(`search?part=snippet&q=${searchTerm}`).then((data) =>
       setVideos(data.items)
     )
-  }, [selectedCategory])
+  }, [searchTerm])
 
   return (
     <Box p={2} sx={{ overflowY: 'auto', height: '90vh', flex: 2 }}>
       <Typography variant='h4' fontWeight='bold' mb={2} sx={{ color: 'white' }}>
-        {selectedCategory === 'Home' ? 'Home' : selectedCategory}{' '}
-        <span
-          style={{ color: selectedCategory === 'Home' ? 'white' : '#FC1503' }}
-        >
-          {selectedCategory === 'Home' ? '' : 'Videos'}
-        </span>
+        Search Results for : {searchTerm}
       </Typography>
 
       <Videos videos={videos} />
