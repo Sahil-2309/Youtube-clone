@@ -1,8 +1,27 @@
 import React from 'react'
-import { Stack, Box } from '@mui/material'
-import { VideoCard, ChannelCard, Loader } from './'
+import { Stack, Skeleton, Box } from '@mui/material'
+import { VideoCard, ChannelCard } from './'
+import ChannelCardSkeleton from './Skeleton/ChannelCardSkeleton'
+import VideoCardSkeleton from './Skeleton/VideoCardSkeleton'
+
 const Videos = ({ videos, direction }) => {
-  if (!videos?.length) return <Loader />
+  if (!videos?.length) {
+    return (
+      <Stack
+        direction={direction || 'row'}
+        flexWrap='wrap'
+        justifyContent={'start'}
+        gap={2}
+        alignItems={'start'}
+      >
+        {[...Array(10)].map((_, idx) => (
+          <Box key={idx}>
+            <ChannelCardSkeleton />
+          </Box>
+        ))}
+      </Stack>
+    )
+  }
   return (
     <Stack
       direction={direction || 'row'}
