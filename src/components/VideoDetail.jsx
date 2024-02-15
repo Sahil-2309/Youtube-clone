@@ -126,6 +126,7 @@ const VideoDetail = () => {
             <Typography variant='h7'>
               {formatNumber(viewCount)} views
             </Typography>
+            <br />
             {showFullDescription
               ? description
               : `${description.slice(0, 1000)}...`}
