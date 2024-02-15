@@ -1,14 +1,13 @@
 import React from 'react'
-import { Box, Skeleton } from '@mui/material'
-import './SkeletonAnimations.css' // Import CSS file for animations
+import { Skeleton } from '@mui/material'
 
 const VideosSkeleton = () => {
   return (
     <>
       <Skeleton
-        variant='text'
+        variant='rectangular'
         animation='wave'
-        height={280}
+        height={180}
         sx={{
           width: { xs: '100%', sm: '358px', md: '320px' },
         }}

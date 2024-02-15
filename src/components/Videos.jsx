@@ -63,7 +63,7 @@ const Videos = ({ videos, direction, itemsPerPage }) => {
           <Button disabled={currentPage === 1} onClick={prevPage}>
             Previous
           </Button>
-          <Typography variant='body1' color='white'>
+          <Typography variant='body1' color='#white'>
             Page {currentPage} of {Math.ceil(videos.length / itemsPerPage)}
           </Typography>
           <Button
