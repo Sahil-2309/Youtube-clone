@@ -1,14 +1,18 @@
-import React from 'react'
-import { Stack, Skeleton, Box } from '@mui/material'
+import React, { useState } from 'react'
+import { Stack, Box, Button, Typography } from '@mui/material'
 import { VideoCard, ChannelCard } from './'
-import ChannelCardSkeleton from './Skeleton/ChannelCardSkeleton'
-import VideoCardSkeleton from './Skeleton/VideoCardSkeleton'
+import VideosSkeleton from './Skeleton/VideosSkeleton'
 
-const Videos = ({ videos, direction }) => {
-  if (!videos?.length) {
+const Videos = ({ videos, direction, itemsPerPage }) => {
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const shouldPaginate =
+    itemsPerPage && typeof itemsPerPage === 'number' && itemsPerPage > 0
+
+  if (!videos) {
     return (
       <Stack
-        direction={direction || 'row'}
+        direction={direction || { md: 'row', sm: 'column' }}
         flexWrap='wrap'
         justifyContent={'start'}
         gap={2}
@@ -16,32 +20,61 @@ const Videos = ({ videos, direction }) => {
       >
         {[...Array(10)].map((_, idx) => (
           <Box key={idx}>
-            <ChannelCardSkeleton />
+            <VideosSkeleton />
           </Box>
         ))}
       </Stack>
     )
   }
+
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+
+  const currentVideos = shouldPaginate
+    ? videos.slice(indexOfFirstItem, indexOfLastItem)
+    : videos
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1)
+  }
+
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1)
+  }
+
   return (
-    <Stack
-      direction={direction || 'row'}
-      flexWrap='wrap'
-      justifyContent={'start'}
-      gap={2}
-      alignItems={'start'}
-    >
-      {videos.map(
-        (item, idx) => (
-          console.log('item:', item),
-          (
-            <Box key={idx}>
-              {item.id.videoId && <VideoCard video={item} />}
-              {item.id.channelId && <ChannelCard channelDetail={item} />}
-            </Box>
-          )
-        )
+    <Box display='flex' flexDirection='column' alignItems='center'>
+      <Stack
+        direction={direction || 'row'}
+        flexWrap='wrap'
+        justifyContent={'start'}
+        gap={2}
+        alignItems={'start'}
+      >
+        {currentVideos.map((item, idx) => (
+          <Box key={idx}>
+            {item.id?.videoId && <VideoCard video={item} />}
+            {item.id?.channelId && <ChannelCard channelDetail={item} />}
+          </Box>
+        ))}
+      </Stack>
+      {shouldPaginate && (
+        <Box mt={2} display='flex' alignItems='center'>
+          <Button disabled={currentPage === 1} onClick={prevPage}>
+            Previous
+          </Button>
+          <Typography variant='body1' color='white'>
+            Page {currentPage} of {Math.ceil(videos.length / itemsPerPage)}
+          </Typography>
+          <Button
+            disabled={indexOfLastItem >= videos.length}
+            onClick={nextPage}
+          >
+            Next
+          </Button>
+        </Box>
       )}
-    </Stack>
+    </Box>
   )
 }
 

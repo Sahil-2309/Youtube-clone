@@ -9,3 +9,10 @@
 .MuiSkeleton-wave {
   animation: wave 1.5s infinite linear;
 }
+/* SkeletonAnimations.css */
+
+@media (max-width: 600px) {
+  .video-skeleton {
+    width: 100%;
+  }
+}
