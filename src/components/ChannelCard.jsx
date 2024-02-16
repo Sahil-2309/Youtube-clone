@@ -34,7 +34,7 @@ const ChannelCard = ({ channelDetail, inVideoDetail }) => {
           />
           <Stack direction='column'>
             <Typography
-              variant='subtitle4'
+              variant='h7'
               fontWeight='bold'
               mt={2}
               color='white'
@@ -43,7 +43,7 @@ const ChannelCard = ({ channelDetail, inVideoDetail }) => {
               {channelDetail?.snippet?.title}
             </Typography>
             {channelDetail?.statistics?.subscriberCount && (
-              <Typography variant='subtitle8' color='gray' fontFamily='arial'>
+              <Typography variant='h7' color='gray' fontFamily='arial'>
                 {formatNumber(channelDetail?.statistics?.subscriberCount)} subs
               </Typography>
             )}
