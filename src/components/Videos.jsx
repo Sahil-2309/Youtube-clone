@@ -29,6 +29,7 @@ const Videos = ({ videos, direction, itemsPerPage }) => {
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const totalItems = videos.length
 
   const currentVideos = shouldPaginate
     ? videos.slice(indexOfFirstItem, indexOfLastItem)
@@ -66,6 +67,17 @@ const Videos = ({ videos, direction, itemsPerPage }) => {
           <Typography variant='body1' color='white'>
             Page {currentPage} of {Math.ceil(videos.length / itemsPerPage)}
           </Typography>
+          {Array.from({ length: Math.ceil(totalItems / itemsPerPage) }).map(
+            (_, index) => (
+              <Button
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                color={currentPage === index + 1 ? 'secondary' : 'primary'}
+              >
+                {index + 1}
+              </Button>
+            )
+          )}
           <Button
             disabled={indexOfLastItem >= videos.length}
             onClick={nextPage}
